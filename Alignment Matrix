@@ -1,0 +1,41 @@
+import numpy as np
+elt=0
+a=0
+b=0
+seq1=['A','C','A','C','A','C','T','A','T','C','G','A']
+seq2=['A','G','C','A','C','A','C','A','G','C','T','A']
+
+
+arr = np.zeros([13, 13], dtype = int) 
+
+def array(arr,j,elt):
+
+    for i in range(len(seq1)):
+
+        if(seq1[i]==seq2[j]):
+            max=arr[i][j]
+            if(max+2>elt): 
+                num=2+max
+                c=i+1
+                d=j+1
+            arr[i+1][j+1]=max+2
+        elif(seq1[i]!=seq2[j]):
+            max=arr[i][j];
+            if(arr[i][j+1]>max): 
+                max=arr[i][j+1]
+            if(arr[i+1][j]>max): 
+                max=arr[i+1][j]
+            if(max-1>elt):
+                elt=abs(max-1)
+                c=i+1
+                d=j+1
+            arr[i+1][j+1]=abs(max-1)
+    if(j==len(seq1)-1):
+        return c,d
+    else:
+        j+=1
+        return array(arr,j,elt)
+    
+j=0
+a,b=array(arr,j,elt)
+print(arr)
